@@ -7,7 +7,7 @@ from .base import Base, engine
 class Quote(Base):
     __tablename__ = "quotes"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[str] = mapped_column(nullable=False)
     text: Mapped[str] = mapped_column(nullable=False)
     author: Mapped[str] = mapped_column(nullable=False)
@@ -19,7 +19,7 @@ class Quote(Base):
 class Quota(Base):
     __tablename__ = "quotas"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[str] = mapped_column(nullable=False, unique=True)
     remaining: Mapped[int] = mapped_column(default=50)
     last_reset: Mapped[datetime] = mapped_column(default=datetime.now)

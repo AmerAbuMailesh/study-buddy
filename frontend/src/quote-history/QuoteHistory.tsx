@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import { MotivationalQuote, type QuoteData } from "../quotes/MotivationalQuote"
+import { useApi } from "../utils/api"
 
 export function QuoteHistory() {
+    const {makeRequest} = useApi()
     const [quoteHistory, setQuoteHistory] = useState<QuoteData[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -11,7 +13,16 @@ export function QuoteHistory() {
     }, [])
 
     const fetchQuoteHistory = async () => {
-        setIsLoading(false)
+        setIsLoading(true)
+        setError(null)
+        try {
+            const response = await makeRequest("/my-history")
+            setQuoteHistory(response.quotes)
+        } catch (error) {
+            setError("Failed to fetch quote history")
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     if (isLoading) {
