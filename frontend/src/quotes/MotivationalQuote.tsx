@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react" 
-
-
 export interface QuoteData {
     text: string
     author?: string

@@ -1,10 +1,8 @@
 from sqlalchemy.orm import Session, DeclarativeBase
 from sqlalchemy import create_engine, select
 from datetime import datetime
-from .models import Quota, Quote
+from .models import Quota, Quote, TimerSession
 from .base import engine
-
-url = "postgresql+psycopg:///amer_bashar:Amer2004.12@localhost:5432/study_buddy"
 
 
 def get_db():
@@ -39,3 +37,10 @@ def create_quote(db: Session, user_id: str, text: str, author: str):
 
 def get_user_quotes(db: Session, user_id: str):
     return db.scalars(select(Quote).where(Quote.user_id == user_id)).all()
+
+def create_timer_session(db: Session, user_id: str, subject: str, duration: int, date_started: datetime):
+    db_timer_session = TimerSession(user_id=user_id, subject=subject, duration=duration, date_started=date_started)
+    db.add(db_timer_session)
+    db.commit()
+    db.refresh(db_timer_session)
+    return db_timer_session

@@ -7,6 +7,7 @@ import { Statistics } from './statistics/Statistics'
 import { Timer } from './timer/Timer'
 import { MotivationalQuoteGenerator } from './quotes/MotivationalQuoteGenerator'
 import { QuoteHistory } from './quote-history/QuoteHistory'
+import { MySubjects } from './subjects/MySubjects'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/sign-up" element={<AuthenticationPage />}/>
         <Route element={<Layout />}>
           <Route path="/" element={<Timer />} />
+          <Route path="/subjects" element={<MySubjects />} />
           <Route path="/statistics" element={<Statistics />} />
           <Route path="/quotes" element={<MotivationalQuoteGenerator />} />
           <Route path="/history" element={<QuoteHistory />} />

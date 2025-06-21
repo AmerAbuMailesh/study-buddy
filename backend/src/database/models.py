@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped, mapped_column
-from datetime import datetime
+from datetime import datetime, timedelta
 from .base import Base, engine
 
 
@@ -27,4 +27,13 @@ class Quota(Base):
     def __repr__(self) -> str:
         return f"Quota(id={self.id}, user_id={self.user_id}, remaining={self.remaining}, last_reset={self.last_reset})"
 
+class TimerSession(Base):
+    __tablename__ = "timer_sessions"
+    
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(nullable=False)
+    subject: Mapped[str] = mapped_column(nullable=False)
+    duration: Mapped[int] = mapped_column(nullable=False)
+    date_started: Mapped[datetime] = mapped_column(nullable=False)
+    
 Base.metadata.create_all(engine)
